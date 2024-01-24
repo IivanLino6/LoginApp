@@ -1,17 +1,17 @@
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:login_app/Presentation/Pages/Login/login_page.dart';
 import 'package:login_app/Presentation/Pages/Login/login_viewmodel.dart';
+import 'package:login_app/Presentation/Pages/Register/register_page.dart';
+import 'package:login_app/Presentation/Pages/Register/register_viewmodel.dart';
 import 'package:login_app/Presentation/Pages/home/home_page.dart';
 import 'package:login_app/domain/uses_cases/auth/auth_usecase.dart';
 import 'package:login_app/injection.dart';
 import 'package:provider/provider.dart';
-import 'firebase_options.dart';
 
 Future<void> main() async {
   //Initialize Firebase services
   WidgetsFlutterBinding.ensureInitialized();
-  final data = await configureDependencies();
+  await configureDependencies();
   runApp(const MyApp());
 }
 
@@ -24,6 +24,7 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
        ChangeNotifierProvider(create: (context) => LoginViewModel(locator<AuthUseCases>())),
+       ChangeNotifierProvider(create: (context) => RegisterViewModel(locator<AuthUseCases>())),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
@@ -35,6 +36,7 @@ class MyApp extends StatelessWidget {
         initialRoute: 'login',
         routes: {
           'login': (BuildContext context) => const LoginPage(),
+          'register':(BuildContext context) => const RegisterPage(),
           'Home': (BuildContext context) => const HomePage()
         },
       ),
