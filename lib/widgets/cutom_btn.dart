@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 
 class CustomBtn extends StatelessWidget {
   final Function onFcn;
-  const CustomBtn({super.key, required this.onFcn});
+  final String txt;
+  final Color color;
+  const CustomBtn({super.key, required this.onFcn, required this.txt, this.color = Colors.blue});
 
   @override
   Widget build(BuildContext context) {
@@ -11,12 +13,12 @@ class CustomBtn extends StatelessWidget {
         onFcn();
       },
       icon: const Icon(Icons.check_sharp, color: Colors.white),
-      label: const Text(
-        'Sign In',
-        style: TextStyle(color: Colors.white),
+      label: Text(
+        txt,
+        style: const TextStyle(color: Colors.white),
       ),
       style: ButtonStyle(
-          backgroundColor: MaterialStateProperty.all<Color>(Colors.blue)),
+          backgroundColor: MaterialStateProperty.all<Color>(color)),
     );
   }
 }

@@ -1,14 +1,17 @@
-import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/material.dart';
 import 'package:login_app/Presentation/Pages/Login/login_page.dart';
-import 'package:login_app/Presentation/Pages/Login/login_state.dart';
 import 'package:login_app/Presentation/Pages/Login/login_viewmodel.dart';
+import 'package:login_app/Presentation/Pages/home/home_page.dart';
+import 'package:login_app/domain/uses_cases/auth/auth_usecase.dart';
+import 'package:login_app/injection.dart';
 import 'package:provider/provider.dart';
+import 'firebase_options.dart';
 
-void main() async {
-  //Initialize firebase services
+Future<void> main() async {
+  //Initialize Firebase services
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp;
+  final data = await configureDependencies();
   runApp(const MyApp());
 }
 
@@ -19,7 +22,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
-      providers: [ChangeNotifierProvider(create: (context) => LoginViewModel()),],
+      providers: [
+       ChangeNotifierProvider(create: (context) => LoginViewModel(locator<AuthUseCases>())),
+      ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Flutter Demo',
@@ -27,7 +32,11 @@ class MyApp extends StatelessWidget {
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
           useMaterial3: true,
         ),
-        home: const LoginPage(),
+        initialRoute: 'login',
+        routes: {
+          'login': (BuildContext context) => const LoginPage(),
+          'Home': (BuildContext context) => const HomePage()
+        },
       ),
     );
   }

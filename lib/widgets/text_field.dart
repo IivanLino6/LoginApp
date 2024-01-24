@@ -5,13 +5,15 @@ class DefaultFormField extends StatefulWidget {
   final Function(String text) onChanged;
   final String error;
   final TextInputType txtType;
+  final bool hideTxt;
 
   const DefaultFormField(
       {super.key,
       required this.txt,
       required this.onChanged,
       this.error = '',
-      this.txtType = TextInputType.text});
+      this.txtType = TextInputType.text,
+      this.hideTxt = false});
 
   @override
   State<DefaultFormField> createState() => _TextCaptionState();
@@ -26,6 +28,7 @@ class _TextCaptionState extends State<DefaultFormField> {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      obscureText:widget.hideTxt ,
       keyboardType:widget.txtType,
       controller: _txtController,
       decoration: InputDecoration(
