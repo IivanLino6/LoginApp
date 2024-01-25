@@ -1,4 +1,5 @@
 import 'package:login_app/Presentation/utils/validation_item.dart';
+import 'package:login_app/domain/model/user.dart';
 
 class RegisterState {
   ValidationItem email;
@@ -43,4 +44,10 @@ class RegisterState {
           username: username ?? this.username,
           validPassword: validPassword ?? this.validPassword,
           number: number ?? this.number);
+
+    toUser() => UserData(
+      email: this.email.value,
+      username: this.username.value,
+      password: this.password.value,
+);
 }

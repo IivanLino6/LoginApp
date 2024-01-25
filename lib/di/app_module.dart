@@ -5,6 +5,7 @@ import 'package:login_app/di/firebase_service.dart';
 import 'package:login_app/domain/repositories/auth_repository.dart';
 import 'package:login_app/domain/uses_cases/auth/auth_usecase.dart';
 import 'package:login_app/domain/uses_cases/auth/login_usecase.dart';
+import 'package:login_app/domain/uses_cases/auth/register_usecase.dart';
 
 //Everytime yo add a new injectable you need execute:
 //flutter packages pub run build_runner build
@@ -28,5 +29,6 @@ abstract class AppModule {
   @injectable
   AuthUseCases get authUseCases => AuthUseCases(
         login: LoginUseCase(authRepository),
+        register: RegisterUseCase(authRepository)
       );
 }

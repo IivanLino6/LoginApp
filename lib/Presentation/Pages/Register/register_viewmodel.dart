@@ -4,40 +4,34 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:login_app/Presentation/Pages/Register/register_state.dart';
 import 'package:login_app/Presentation/utils/validation_item.dart';
 import 'package:login_app/domain/uses_cases/auth/auth_usecase.dart';
+import 'package:login_app/domain/utils/resources.dart';
 
 class RegisterViewModel extends ChangeNotifier {
   //State
   RegisterState _state = RegisterState();
-
-  RegisterViewModel(AuthUseCases authUseCases);
-  //Getter
   RegisterState get state => _state;
 
-  //FIREBASE AUTH Instace
-  FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
+   //Usecase
+  AuthUseCases _authUseCases;
+
+  RegisterViewModel(this._authUseCases);
 
   String validPassword = '';
 
-  //Resource _response = Init();
-  //Resource get response => _response;
-  //UseCase
-  //AuthUseCases _authUseCases;
-  //RegisterViewModel(this._authUseCases);
+  Resource _response = Init();
+  Resource get response => _response;
+
 
   //Setter
 
   register() async {
     if (_state.isValid()) {
       //Initial State
-      //_response = Loading();
+      _response = Loading();
       notifyListeners();
       //Register State
-      //_response = await _authUseCases.register.launch(_state.toUser());
+      _response = await _authUseCases.register.launch(_state.toUser());
       notifyListeners();
-      print('Form Values: ${_state.username.value}');
-      print('Form Values: ${_state.email.value}');
-      print('Form Values: ${_state.number.value}');
-      print('Form Values: ${_state.password.value}');
     } else {
       print('Error en el formulario');
       Fluttertoast.showToast(
@@ -104,7 +98,7 @@ class RegisterViewModel extends ChangeNotifier {
   }
 
   resetResponse() {
-    //_response = Init();
+    _response = Init();
     notifyListeners();
   }
 }
