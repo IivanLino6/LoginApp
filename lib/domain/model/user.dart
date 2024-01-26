@@ -27,7 +27,8 @@ class UserData {
         email: json["email"] ?? '',
         password: json["Password"] ?? '',
     );
-
+   
+   //Si no quieres agregar un dato al firebase commenta el dato 
     Map<String, dynamic> toJson() => {
         "id": id,
         "username": username,

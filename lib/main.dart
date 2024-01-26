@@ -4,6 +4,7 @@ import 'package:login_app/Presentation/Pages/Login/login_viewmodel.dart';
 import 'package:login_app/Presentation/Pages/Register/register_page.dart';
 import 'package:login_app/Presentation/Pages/Register/register_viewmodel.dart';
 import 'package:login_app/Presentation/Pages/home/home_page.dart';
+import 'package:login_app/Presentation/Pages/home/home_viewmodel.dart';
 import 'package:login_app/domain/uses_cases/auth/auth_usecase.dart';
 import 'package:login_app/injection.dart';
 import 'package:provider/provider.dart';
@@ -25,6 +26,7 @@ class MyApp extends StatelessWidget {
       providers: [
        ChangeNotifierProvider(create: (context) => LoginViewModel(locator<AuthUseCases>())),
        ChangeNotifierProvider(create: (context) => RegisterViewModel(locator<AuthUseCases>())),
+       ChangeNotifierProvider(create: (context) => HomeViewModel(locator<AuthUseCases>())),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
